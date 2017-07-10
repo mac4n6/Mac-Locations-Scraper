@@ -206,7 +206,7 @@ if __name__ == "__main__":
 							conn.row_factory = sqlite3.Row
 							cur = conn.cursor()
 							getTablesNColumns()
-			print "...Locations are being saved in the CSV file ios_locations_scraped.csv"
+			print "...Locations are being saved in the CSV file mac_locations_scraped.csv"
 
 	if args.output == 'k' or args.output =='e':
 		output_type = 'k'
@@ -224,4 +224,4 @@ if __name__ == "__main__":
 						getTablesNColumns()
 
 			kml.save("mac_locations_scraped.kml")
-		print "...Locations are being saved in the KML file ios_locations_scraped.kml"
+		print "...Locations are being saved in the KML file mac_locations_scraped.kml"
