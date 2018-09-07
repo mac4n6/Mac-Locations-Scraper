@@ -1,6 +1,6 @@
 #!/usr/bin/python
 '''
-Copyright (c) 2017, Station X Labs, LLC
+Copyright (c) 2018, Station X Labs, LLC
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -50,7 +50,6 @@ def getTablesNColumns():
 			if "latitude" in item.lower():
 
 				extractLocations(table[0])
-
 
 def extractLocations(table):
  
@@ -122,35 +121,29 @@ def extractLocations(table):
 				timestamp_formatted = strftime("%Y-%m-%dT%H:%M:%SZ", gmtime(timestamp))
 
 				if output_type == 'c' or output_type == 'e':
-					loccsv.writerow([f,table,timestamp_formatted, str(row["ZLATITUDE"]), str(row["ZLONGITUDE"]), data_stuff])
+					if row["ZLATITUDE"]:
+						loccsv.writerow([f,table,timestamp_formatted, str(row["ZLATITUDE"]), str(row["ZLONGITUDE"]), data_stuff])
+					elif rowrow["ZLOCLATITUDE"]:
+						loccsv.writerow([f,table,timestamp_formatted, str(row["ZLOCLATITUDE"]), str(row["ZLOCLONGITUDE"]), data_stuff])
 
 				if output_type == 'k' or output_type == 'e':
-					point = folder_name.newpoint(name=timestamp_formatted)
-					point.description = ("Original Database Tuple Data: " + data_stuff)
-					point.coords = [(row["ZLONGITUDE"],row["ZLATITUDE"])]
-					point.style.iconstyle.color = simplekml.Color.red
-					point.style.labelstyle.scale = 0.5
-					point.timestamp.when = timestamp_formatted	
+					if row["ZLATITUDE"]:
+						point = folder_name.newpoint(name=timestamp_formatted)
+						point.description = ("Original Database Tuple Data: " + data_stuff)
+						point.coords = [(row["ZLONGITUDE"],row["ZLATITUDE"])]
+						point.style.iconstyle.color = simplekml.Color.red
+						point.style.labelstyle.scale = 0.5
+						point.timestamp.when = timestamp_formatted	
+					elif row["ZLOCLATITUDE"]:
+						point = folder_name.newpoint(name=timestamp_formatted)
+						point.description = ("Original Database Tuple Data: " + data_stuff)
+						point.coords = [(row["ZLOCLONGITUDE"],row["ZLOCLATITUDE"])]
+						point.style.iconstyle.color = simplekml.Color.red
+						point.style.labelstyle.scale = 0.5
+						point.timestamp.when = timestamp_formatted	
 			except:
 				pass			
 			
-			try:
-				if row["ZDATE"]:
-					timestamp = row["ZDATE"] + 978307200
-				timestamp_formatted = strftime("%Y-%m-%dT%H:%M:%SZ", gmtime(timestamp))
-
-				if output_type == 'c' or output_type == 'e':
-					loccsv.writerow([f,table,timestamp_formatted, str(row["ZLOCLATITUDE"]), str(row["ZLOCLONGITUDE"]), data_stuff])
-
-				if output_type == 'k' or output_type == 'e':
-					point = folder_name.newpoint(name=timestamp_formatted)
-					point.description = ("Original Database Tuple Data: " + data_stuff)
-					point.coords = [(row["ZLOCLONGITUDE"],row["ZLOCLATITUDE"])]
-					point.style.iconstyle.color = simplekml.Color.red
-					point.style.labelstyle.scale = 0.5
-					point.timestamp.when = timestamp_formatted	
-			except:
-				pass	
 	except:
 		pass
 			
@@ -170,8 +163,8 @@ if __name__ == "__main__":
 	\n\t/var/folders/zz/zyxvpxvq6csfxvn_n00000sm00006d/C/\
 	\n\t\t- cache_encryptedA.db\
 	\n\t\t- lockCache_encryptedA.db\
-	\n\n\tVersion: 1.1\
-	\n\tUpdated: 07/04/2017\
+	\n\n\tVersion: 1.2\
+	\n\tUpdated: 08/07/2018\
 	\n\tAuthor: Sarah Edwards | @iamevltwin | mac4n6.com | oompa@csh.rit.edu"
 		, prog='mac_locations_scraper.py'
 		, formatter_class=RawTextHelpFormatter)
