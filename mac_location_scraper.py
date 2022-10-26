@@ -192,7 +192,7 @@ if __name__ == "__main__":
 			for root, dirs, filenames in os.walk(locdir):
 				for f in filenames: 
 					if f.endswith(".db") or f.endswith(".sqlite"):
-						print "Scraping locations for CSV from: " + f  
+						print("Scraping locations for CSV from: " + f) 
 						db = os.path.join(root,f)
 						conn = sqlite3.connect(db)
 						with conn:
